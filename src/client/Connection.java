@@ -64,8 +64,7 @@ public class Connection {
 
 
     private void showConnectionDialog() {
-        String connection = JOptionPane.showInputDialog(null, "Введите адрес и порт сервера.", "Connection", JOptionPane.PLAIN_MESSAGE);
-
+        final ConnectionDialog connectionDialog = new ConnectionDialog();
         serverPort = 6006;
         serverAddress = "127.0.0.1";
     }
