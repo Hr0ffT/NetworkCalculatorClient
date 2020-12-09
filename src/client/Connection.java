@@ -1,5 +1,6 @@
 package client;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,11 +32,11 @@ public class Connection {
         this.serverAddress = address;
     }
 
-    public Connection(int serverPort, String address) {
-        this.serverPort = serverPort;
-        this.serverAddress = address;
+    public Connection() {
+        showConnectionDialog();
+
         try {
-            createSocket(serverPort, address);
+            createSocket();
             createInOutStreams(socket);
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,10 +44,10 @@ public class Connection {
 
     }
 
-    private void createSocket(int port, String address) throws IOException {
+    private void createSocket() throws IOException {
         try {
-            InetAddress ipAddress = InetAddress.getByName(address);
-            this.socket = new Socket(ipAddress, port);
+            InetAddress ipAddress = InetAddress.getByName(serverAddress);
+            this.socket = new Socket(ipAddress, serverPort);
         } catch (UnknownHostException e) {
             e.printStackTrace();
             System.out.println("Unknown host!");
@@ -62,4 +63,10 @@ public class Connection {
     }
 
 
+    private void showConnectionDialog() {
+        String connection = JOptionPane.showInputDialog(null, "Введите адрес и порт сервера.", "Connection", JOptionPane.PLAIN_MESSAGE);
+
+        serverPort = 6006;
+        serverAddress = "127.0.0.1";
+    }
 }
