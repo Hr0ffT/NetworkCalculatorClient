@@ -15,7 +15,6 @@ public class Runner {
         if (connection.isConnected()) {
             mainWindow = new MainWindow(sender);
 
-
             while (connection.isConnected()) {
                 mainWindow.changeStatusLabel("Connected to "  + connection.getFullAddress().substring(1));
 

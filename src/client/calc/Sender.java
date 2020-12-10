@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class Sender implements ActionListener {
 
-
     String buttonText;
     Connection connection;
 

@@ -34,7 +34,6 @@ public class MainWindow {
         Font font1 = new Font("SansSerif", Font.BOLD, 20);
         displayField.setFont(font1);
 
-
         String OPERATIONS = "+-*/";
 
         for (int i = 0; i < OPERATIONS.length(); i++) {

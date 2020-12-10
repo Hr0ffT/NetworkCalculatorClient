@@ -26,6 +26,7 @@ public class ConnectionDialog {
         JLabel portLabel = new JLabel("Port:");
         GridLayout gridLayout = new GridLayout(2, 2);
         panel.setLayout(gridLayout);
+
         panel.add(addressLabel);
         panel.add(addressField);
         panel.add(portLabel);
