@@ -1,4 +1,7 @@
-package client;
+package client.calc;
+
+import client.Runner;
+import client.calc.CalculatorEngine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,7 +124,11 @@ public class MainWindow {
             actionButton.setFont((new Font("Arial", Font.BOLD, 15)));
         }
 
-        clear.addActionListener(calcEngine);
+//        clear.addActionListener(calcEngine);
+//        equalsButton.addActionListener(calcEngine);
+//        percentButton.addActionListener(calcEngine);
+
+//        clear.addActionListener();
         equalsButton.addActionListener(calcEngine);
         percentButton.addActionListener(calcEngine);
 

@@ -57,15 +57,15 @@ public class Connection {
 
     private void createInOutStreams(Socket socket) throws IOException {
 
-            in = (DataInputStream) socket.getInputStream();
-            out = (DataOutputStream) socket.getOutputStream();
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
 
     }
 
 
     private void showConnectionDialog() {
         final ConnectionDialog connectionDialog = new ConnectionDialog();
-        serverPort = 6006;
-        serverAddress = "127.0.0.1";
+        serverPort = connectionDialog.getServerPort();
+        serverAddress = connectionDialog.getServerAddress();
     }
 }
