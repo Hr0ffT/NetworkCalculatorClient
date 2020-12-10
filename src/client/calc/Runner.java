@@ -30,7 +30,7 @@ public class Runner {
                     connection.setConnected(false);
                     int option = JOptionPane.showConfirmDialog (null, "The connection is lost! \n Do you want to reconnect?","Disconnected", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
-                        connection.connect();
+                        connection.connect(ConnectionDialog.DEFAULT_TITLE);
                     } else {
                         System.exit(0);
                     }

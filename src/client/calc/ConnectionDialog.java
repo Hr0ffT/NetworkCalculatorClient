@@ -46,8 +46,12 @@ public class ConnectionDialog {
             System.out.println("yes");
             while (!incorrectInput()) {
                 showDialog(INCORRECT_INPUT);
+                System.out.println("SSS");
             }
-        } else terminate();
+        } else {
+            System.out.println("Terminating");
+//            terminate();
+        }
     }
 
     private boolean isCorrectAddress(String input) {

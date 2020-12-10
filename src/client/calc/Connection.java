@@ -17,22 +17,26 @@ public class Connection {
 
     private boolean connected;
 
-    public void connect(){
-        showConnectionDialog(ConnectionDialog.DEFAULT_TITLE);
+    public void connect(String title){
+        showConnectionDialog(title);
+        connected = true;
 
         try {
             createSocket();
             createInOutStreams(socket);
+
         } catch (IOException e) {
-            showConnectionDialog(ConnectionDialog.INCORRECT_INPUT);
+            connect(ConnectionDialog.INCORRECT_INPUT);
+            System.out.println("фывыв");
+//            connected = false;
         }
 
-        connected = true;
+
     }
 
     public Connection() {
         connected = false;
-        connect();
+        connect(ConnectionDialog.DEFAULT_TITLE);
     }
 
     private void createSocket() throws IOException {
