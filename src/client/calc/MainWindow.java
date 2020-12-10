@@ -5,8 +5,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-
 public class MainWindow {
     JPanel mainPanel;
     JPanel numbersPanel;
@@ -14,14 +12,12 @@ public class MainWindow {
     JPanel rightPanel;
     JPanel bottomPanel;
     JFrame frame;
-    JLabel label;
+    JLabel statusLabel;
 
     JTextField displayField;
 
     List<JButton> numButtons;
     List<JButton> operationButtons;
-
-    String operations = "+-*/";
 
     BorderLayout borderLayout;
     GridLayout gridLayout1;
@@ -53,13 +49,15 @@ public class MainWindow {
         this.frame = new JFrame("Calc");
         this.numButtons = new ArrayList<>();
         this.operationButtons = new ArrayList<>();
-        this.label = new JLabel("PIPISKA");
+        this.statusLabel = new JLabel("PIPISKA");
         Font font1 = new Font("SansSerif", Font.BOLD, 20);
         displayField.setFont(font1);
 
 
-        for (int i = 0; i < operations.length(); i++) {
-            operationButtons.add(new JButton(String.valueOf(operations.charAt(i))));
+        String OPERATIONS = "+-*/";
+
+        for (int i = 0; i < OPERATIONS.length(); i++) {
+            operationButtons.add(new JButton(String.valueOf(OPERATIONS.charAt(i))));
 
         }
 
@@ -92,7 +90,7 @@ public class MainWindow {
         rightPanel.add(equalsButton);
 
         bottomPanel.add("North", operationsPanel);
-        bottomPanel.add("South", label);
+        bottomPanel.add("South", statusLabel);
 
         mainPanel.add("North", displayField);
         mainPanel.add("Center", numbersPanel);

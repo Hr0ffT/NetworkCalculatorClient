@@ -3,23 +3,21 @@ package client.calc;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Connection {
 
     private int serverPort;
-    InetAddress ipAddress;
-//    private String serverAddress;
-    Socket socket;
-    DataInputStream in;
-    DataOutputStream out;
+    private InetAddress ipAddress;
+    private Socket socket;
 
-    boolean connected;
+    private DataInputStream in;
+    private DataOutputStream out;
 
-    public Connection() {
+    private boolean connected;
+
+    public void connect(){
         showConnectionDialog(ConnectionDialog.DEFAULT_TITLE);
 
         try {
@@ -29,10 +27,12 @@ public class Connection {
             showConnectionDialog(ConnectionDialog.INCORRECT_INPUT);
         }
 
-        if (socket != null) {
-            connected = true;
-        }
+        connected = true;
+    }
 
+    public Connection() {
+        connected = false;
+        connect();
     }
 
     private void createSocket() throws IOException {
@@ -49,8 +49,6 @@ public class Connection {
 
     private void showConnectionDialog(String title) {
         new ConnectionDialog(this, title);
-//        serverPort = connectionDialog.getServerPort();
-//        serverAddress = connectionDialog.getServerAddress();
     }
 
     public void setIpAddress(InetAddress ipAddress) {
@@ -59,5 +57,25 @@ public class Connection {
 
     public void setServerPort(int serverPort) {
         this.serverPort = serverPort;
+    }
+
+    public String getFullAddress() {
+        return ipAddress + ": " + serverPort;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public DataInputStream getInputStream() {
+        return in;
+    }
+
+    public DataOutputStream getOutputStream() {
+        return out;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 }

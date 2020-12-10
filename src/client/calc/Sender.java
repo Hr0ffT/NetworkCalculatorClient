@@ -28,6 +28,6 @@ public class Sender implements ActionListener {
     }
 
     public void send() throws IOException {
-        connection.out.writeUTF(buttonText);
+        connection.getOutputStream().writeUTF(buttonText);
     }
 }

@@ -24,7 +24,7 @@ public class ConnectionDialog {
 
         this.connection = connection;
         this.portField = new JTextField("6666");
-        this.addressField = new JTextField();
+        this.addressField = new JTextField("127.0.0.1");
         this.panel = new JPanel();
         this.addressLabel = new JLabel("IP address:");
         this.portLabel = new JLabel("Port:");
