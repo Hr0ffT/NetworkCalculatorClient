@@ -6,50 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainWindow {
-    JPanel mainPanel;
-    JPanel numbersPanel;
-    JPanel operationsPanel;
-    JPanel rightPanel;
-    JPanel bottomPanel;
-    JFrame frame;
-    JLabel statusLabel;
 
-    JTextField displayField;
-
-    List<JButton> numButtons;
-    List<JButton> operationButtons;
-
-    BorderLayout borderLayout;
-    GridLayout gridLayout1;
-    GridLayout gridLayout2;
-    GridLayout rightGridLayout3;
-    BorderLayout bottomBorderLayout;
-
-    Sender sender;
+    private final JLabel statusLabel;
+    private final JTextField displayField;
 
     public MainWindow(Sender sender) {
 
-         this.sender = sender;
+        JPanel mainPanel = new JPanel();
+        JPanel numbersPanel = new JPanel();
+        JPanel operationsPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
 
-        this.mainPanel = new JPanel();
-        this.numbersPanel = new JPanel();
-        this.operationsPanel = new JPanel();
-        this.rightPanel = new JPanel();
-        this.bottomPanel = new JPanel();
-
-        this.borderLayout = new BorderLayout(1,1);
-        this.gridLayout1 = new GridLayout(0, 3);
-        this.gridLayout2 = new GridLayout(2,0);
-        this.rightGridLayout3 = new GridLayout(0,1);
-        this.bottomBorderLayout = new BorderLayout(1,1);
+        BorderLayout borderLayout = new BorderLayout(1, 1);
+        GridLayout gridLayout1 = new GridLayout(0, 3);
+        GridLayout gridLayout2 = new GridLayout(2, 0);
+        GridLayout rightGridLayout3 = new GridLayout(0, 1);
+        BorderLayout bottomBorderLayout = new BorderLayout(1, 1);
 
 
         this.displayField = new JTextField(15);
         displayField.setHorizontalAlignment(SwingConstants.RIGHT);
-        this.frame = new JFrame("Calc");
-        this.numButtons = new ArrayList<>();
-        this.operationButtons = new ArrayList<>();
-        this.statusLabel = new JLabel("PIPISKA");
+        JFrame frame = new JFrame("Calc");
+        List<JButton> numButtons = new ArrayList<>();
+        List<JButton> operationButtons = new ArrayList<>();
+        this.statusLabel = new JLabel(" ");
         Font font1 = new Font("SansSerif", Font.BOLD, 20);
         displayField.setFont(font1);
 
@@ -119,8 +100,12 @@ public class MainWindow {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    private void terminate() {
-        System.out.println("Closed");
-        System.exit(0);
+    public void changeStatusLabel(String text) {
+        statusLabel.setText(text);
     }
+
+    public void display(String displayText) {
+        displayField.setText(displayText);
+    }
+
 }

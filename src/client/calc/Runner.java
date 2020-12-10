@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Runner {
 
-    static  MainWindow mainWindow;
+    static MainWindow mainWindow;
 
     public static void main(String[] args) {
 
@@ -17,16 +17,16 @@ public class Runner {
 
 
             while (connection.isConnected()) {
-                mainWindow.statusLabel.setText("Connected to "  + connection.getFullAddress().substring(1));
+                mainWindow.changeStatusLabel("Connected to "  + connection.getFullAddress().substring(1));
 
                 try {
 
                     final String displayText = connection.getInputStream().readUTF();
-                    mainWindow.displayField.setText(displayText);
+                    mainWindow.display(displayText);
                     System.out.println(displayText);
 
                 } catch (IOException e) {
-                    mainWindow.statusLabel.setText("Connection lost");
+                    mainWindow.changeStatusLabel("Connection lost");
                     System.out.println("Connection lost");
                     connection.setConnected(false);
                     int option = JOptionPane.showConfirmDialog (null, "The connection is lost! \n Do you want to reconnect?","Disconnected", JOptionPane.YES_NO_OPTION);

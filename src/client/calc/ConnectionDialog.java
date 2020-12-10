@@ -7,15 +7,11 @@ import java.net.InetAddress;
 
 public class ConnectionDialog {
 
-    Connection connection;
-    JPanel panel;
+    private final Connection connection;
+    private final JPanel panel;
 
-    JTextField portField;
-    JTextField addressField;
-
-    JLabel addressLabel;
-    JLabel portLabel;
-    GridLayout gridLayout;
+    private final JTextField portField;
+    private final JTextField addressField;
 
     public static final String DEFAULT_TITLE = "Connection";
     public static final String INCORRECT_INPUT = "Некорректный адрес или порт";
@@ -26,9 +22,9 @@ public class ConnectionDialog {
         this.portField = new JTextField("6666");
         this.addressField = new JTextField("127.0.0.1");
         this.panel = new JPanel();
-        this.addressLabel = new JLabel("IP address:");
-        this.portLabel = new JLabel("Port:");
-        this.gridLayout = new GridLayout(2,2);
+        JLabel addressLabel = new JLabel("IP address:");
+        JLabel portLabel = new JLabel("Port:");
+        GridLayout gridLayout = new GridLayout(2, 2);
         panel.setLayout(gridLayout);
         panel.add(addressLabel);
         panel.add(addressField);
