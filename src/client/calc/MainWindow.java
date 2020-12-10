@@ -1,9 +1,5 @@
 package client.calc;
 
-import client.Runner;
-import client.Sender;
-import client.calc.CalculatorEngine;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

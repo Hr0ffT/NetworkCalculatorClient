@@ -1,4 +1,4 @@
-package client;
+package client.calc;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,12 +28,6 @@ public class ConnectionDialog {
         panel.add(addressField);
         panel.add(portLabel);
         panel.add(portField);
-
-
-        Object[] message = {
-                "", addressField
-//                ,                "Port:", portField
-        };
 
         int connection = JOptionPane.showConfirmDialog(null, panel, "Connection", JOptionPane.DEFAULT_OPTION);
         serverAddress =  addressField.getText();

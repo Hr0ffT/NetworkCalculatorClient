@@ -1,4 +1,4 @@
-package client;
+package client.calc;
 import java.io.*;
 import java.net.*;
 
