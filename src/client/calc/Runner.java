@@ -13,11 +13,7 @@ public class Runner {
 
     if (connection.connected) {
         mainWindow = new MainWindow(sender);
-    }
-
-
-
-        while (true) {
+        while (connection.connected) {
 
             try {
                 final String displayText = connection.in.readUTF();
@@ -26,8 +22,12 @@ public class Runner {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+    }
+
+
+
+
 
     }
 }

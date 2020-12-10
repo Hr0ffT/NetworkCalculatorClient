@@ -118,7 +118,11 @@ public class MainWindow {
         equalsButton.addActionListener(sender);
         percentButton.addActionListener(sender);
 
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 
+    private void terminate() {
+        System.out.println("Closed");
+        System.exit(0);
     }
 }

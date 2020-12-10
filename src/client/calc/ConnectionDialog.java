@@ -2,9 +2,12 @@ package client.calc;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
+import java.io.IOException;
+import java.net.InetAddress;
 
 public class ConnectionDialog {
+
+    Connection connection;
     JPanel panel;
 
     JTextField portField;
@@ -14,12 +17,14 @@ public class ConnectionDialog {
     JLabel portLabel;
     GridLayout gridLayout;
 
-    private  String serverAddress;
-    private  int serverPort;
+    public static final String DEFAULT_TITLE = "Connection";
+    public static final String INCORRECT_INPUT = "Некорректный адрес или порт";
 
-    public ConnectionDialog() {
+    public ConnectionDialog(Connection connection, String title) {
+
+        this.connection = connection;
         this.portField = new JTextField("6666");
-        this.addressField = new JTextField("127.0.0.1");
+        this.addressField = new JTextField();
         this.panel = new JPanel();
         this.addressLabel = new JLabel("IP address:");
         this.portLabel = new JLabel("Port:");
@@ -29,47 +34,23 @@ public class ConnectionDialog {
         panel.add(addressField);
         panel.add(portLabel);
         panel.add(portField);
-//        final JOptionPane jOptionPane = new JOptionPane();
 
-
-        int option = showDialog("Connection");
-
-        if (option == JOptionPane.CLOSED_OPTION) {
-            System.out.println("Closed");
-            System.exit(0);
-        } else if (option == JOptionPane.YES_OPTION){
-            System.out.println("YES");
-            if  (isCorrectAddress(addressField.getText())){
-                System.out.println("IP is correct");
-                try {
-                    serverAddress =  addressField.getText();
-                    serverPort = Integer.parseInt(portField.getText());
-                    System.out.println(serverPort);
-                    System.out.println(serverAddress);
-                } catch (NumberFormatException exception) {
-                    exception.printStackTrace();
-                    System.out.println("Incorrect number.");
-                }
-            } else  {
-                while (!isCorrectAddress(addressField.getText())) {
-                    System.out.println("Некорректный адресс, введите еще раз.");
-                    int option2 =  showDialog("Некорректный адресс, введите еще раз.");
-                    if (option2 == JOptionPane.CLOSED_OPTION) {
-                        System.out.println("Closed");
-                        System.exit(0);
-                    }
-                }
-
-            }
-
-        }
-
+        showDialog(title);
     }
 
-    private int showDialog(String title) {
-        return JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.DEFAULT_OPTION);
+    private boolean incorrectInput() {
+        System.out.println("Checking");
+        return parsePort() && parseInetAddress();
+    }
 
-
+    private void showDialog(String title) {
+        int option = JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.DEFAULT_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            System.out.println("yes");
+            while (!incorrectInput()) {
+                showDialog(INCORRECT_INPUT);
+            }
+        } else terminate();
     }
 
     private boolean isCorrectAddress(String input) {
@@ -77,13 +58,43 @@ public class ConnectionDialog {
         return input.matches(PATTERN);
     }
 
-    public String getServerAddress() {
-        return serverAddress;
+    private boolean parsePort() {
+        try {
+            connection.setServerPort(Integer.parseInt(portField.getText()));
+
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректный порт");
+            return false;
+        }
     }
 
-    public int getServerPort() {
-        return serverPort;
+    private boolean parseInetAddress() {
+        System.out.println("Parsing address");
+        String host = addressField.getText();
+        if (isCorrectAddress(host)) {
+            try {
+                InetAddress inet = InetAddress.getByName(host);
+                if (inet.isReachable(100)) {
+                    connection.setIpAddress(inet);
+                    return true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Некорректный адрес");
+
+        }
+        return false;
     }
+
+    private void terminate() {
+        System.out.println("Closed");
+        System.exit(0);
+    }
+
 }
 
 

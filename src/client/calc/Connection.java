@@ -3,6 +3,7 @@ package client.calc;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -10,7 +11,8 @@ import java.net.UnknownHostException;
 public class Connection {
 
     private int serverPort;
-    private String serverAddress;
+    InetAddress ipAddress;
+//    private String serverAddress;
     Socket socket;
     DataInputStream in;
     DataOutputStream out;
@@ -18,13 +20,13 @@ public class Connection {
     boolean connected;
 
     public Connection() {
-        showConnectionDialog();
+        showConnectionDialog(ConnectionDialog.DEFAULT_TITLE);
 
         try {
             createSocket();
             createInOutStreams(socket);
         } catch (IOException e) {
-            e.printStackTrace();
+            showConnectionDialog(ConnectionDialog.INCORRECT_INPUT);
         }
 
         if (socket != null) {
@@ -34,14 +36,7 @@ public class Connection {
     }
 
     private void createSocket() throws IOException {
-        try {
-            InetAddress ipAddress = InetAddress.getByName(serverAddress);
             this.socket = new Socket(ipAddress, serverPort);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println("Unknown host!");
-        }
-
     }
 
     private void createInOutStreams(Socket socket) throws IOException {
@@ -52,9 +47,17 @@ public class Connection {
     }
 
 
-    private void showConnectionDialog() {
-        ConnectionDialog connectionDialog = new ConnectionDialog();
-        serverPort = connectionDialog.getServerPort();
-        serverAddress = connectionDialog.getServerAddress();
+    private void showConnectionDialog(String title) {
+        new ConnectionDialog(this, title);
+//        serverPort = connectionDialog.getServerPort();
+//        serverAddress = connectionDialog.getServerAddress();
+    }
+
+    public void setIpAddress(InetAddress ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
     }
 }
