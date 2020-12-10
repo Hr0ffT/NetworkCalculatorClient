@@ -4,11 +4,17 @@ import java.io.IOException;
 
 public class Runner {
 
+    static  MainWindow mainWindow;
+
     public static void main(String[] args) {
 
         Connection connection = new Connection();
         Sender sender = new Sender(connection);
-        MainWindow mainWindow = new MainWindow(sender);
+
+    if (connection.connected) {
+        mainWindow = new MainWindow(sender);
+    }
+
 
 
         while (true) {

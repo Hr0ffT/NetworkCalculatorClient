@@ -15,21 +15,7 @@ public class Connection {
     DataInputStream in;
     DataOutputStream out;
 
-    public int serverPort() {
-        return serverPort;
-    }
-
-    public void setServerPort(int port) {
-        this.serverPort = port;
-    }
-
-    public String address() {
-        return serverAddress;
-    }
-
-    public void setAddress(String address) {
-        this.serverAddress = address;
-    }
+    boolean connected;
 
     public Connection() {
         showConnectionDialog();
@@ -39,6 +25,10 @@ public class Connection {
             createInOutStreams(socket);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (socket != null) {
+            connected = true;
         }
 
     }
@@ -63,7 +53,7 @@ public class Connection {
 
 
     private void showConnectionDialog() {
-        final ConnectionDialog connectionDialog = new ConnectionDialog();
+        ConnectionDialog connectionDialog = new ConnectionDialog();
         serverPort = connectionDialog.getServerPort();
         serverAddress = connectionDialog.getServerAddress();
     }
