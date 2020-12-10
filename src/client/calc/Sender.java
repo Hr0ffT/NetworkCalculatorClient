@@ -1,4 +1,4 @@
-package client;
+package client.calc;
 
 
 import javax.swing.*;
@@ -20,7 +20,6 @@ public class Sender implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         JButton clickedButton = (JButton)event.getSource();
         buttonText =  clickedButton.getText();
-        System.out.println(buttonText);
         try {
             send();
         } catch (IOException e) {
