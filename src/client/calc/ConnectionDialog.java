@@ -2,6 +2,7 @@ package client.calc;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class ConnectionDialog {
     JPanel panel;
@@ -28,18 +29,52 @@ public class ConnectionDialog {
         panel.add(addressField);
         panel.add(portLabel);
         panel.add(portField);
+//        final JOptionPane jOptionPane = new JOptionPane();
 
-        int connection = JOptionPane.showConfirmDialog(null, panel, "Connection", JOptionPane.DEFAULT_OPTION);
-        serverAddress =  addressField.getText();
-        System.out.println(serverAddress);
-        try {
-            serverPort = Integer.parseInt(portField.getText());
-            System.out.println(serverPort);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-            System.out.println("Incorrect number.");
+
+        int option = showDialog("Connection");
+
+        if (option == JOptionPane.CLOSED_OPTION) {
+            System.out.println("Closed");
+            System.exit(0);
+        } else if (option == JOptionPane.YES_OPTION){
+            System.out.println("YES");
+            if  (isCorrectAddress(addressField.getText())){
+                System.out.println("IP is correct");
+                try {
+                    serverAddress =  addressField.getText();
+                    serverPort = Integer.parseInt(portField.getText());
+                    System.out.println(serverPort);
+                    System.out.println(serverAddress);
+                } catch (NumberFormatException exception) {
+                    exception.printStackTrace();
+                    System.out.println("Incorrect number.");
+                }
+            } else  {
+                while (!isCorrectAddress(addressField.getText())) {
+                    System.out.println("Некорректный адресс, введите еще раз.");
+                    int option2 =  showDialog("Некорректный адресс, введите еще раз.");
+                    if (option2 == JOptionPane.CLOSED_OPTION) {
+                        System.out.println("Closed");
+                        System.exit(0);
+                    }
+                }
+
+            }
+
         }
 
+    }
+
+    private int showDialog(String title) {
+        return JOptionPane.showConfirmDialog(null, panel, title, JOptionPane.DEFAULT_OPTION);
+
+
+    }
+
+    private boolean isCorrectAddress(String input) {
+        String PATTERN = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$";
+        return input.matches(PATTERN);
     }
 
     public String getServerAddress() {

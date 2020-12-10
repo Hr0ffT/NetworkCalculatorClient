@@ -31,7 +31,6 @@ public class MainWindow {
 
     Sender sender;
 
-
     public MainWindow(Sender sender) {
 
          this.sender = sender;
@@ -100,18 +99,9 @@ public class MainWindow {
         mainPanel.add("East", rightPanel);
         mainPanel.add("South", bottomPanel);
 
-
-
-
-
-
-
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setVisible(true);
-
-//        CalculatorEngine calcEngine = new CalculatorEngine(this);
-
 
         for (JButton numButton : numButtons) {
             numButton.addActionListener(sender);
@@ -124,14 +114,9 @@ public class MainWindow {
             actionButton.setFont((new Font("Arial", Font.BOLD, 15)));
         }
 
-//        clear.addActionListener(calcEngine);
-//        equalsButton.addActionListener(calcEngine);
-//        percentButton.addActionListener(calcEngine);
-
         clear.addActionListener(sender);
         equalsButton.addActionListener(sender);
         percentButton.addActionListener(sender);
-
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
