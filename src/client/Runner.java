@@ -3,19 +3,16 @@ package client;
 
 import client.calc.MainWindow;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class Runner implements ActionListener {
+public class Runner {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws IOException {
 
         final Connection connection = new Connection();
-        final MainWindow mainWindow = new MainWindow();
+        final Sender sender = new Sender(connection);
+        final MainWindow mainWindow = new MainWindow(sender);
+
 
 
         System.out.println();
@@ -28,9 +25,5 @@ public class Runner implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        JButton clickedButton= (JButton)event.getSource();
-//        handleInput(clickedButton);
-    }
+
 }

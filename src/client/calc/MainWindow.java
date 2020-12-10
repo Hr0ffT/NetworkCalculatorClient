@@ -1,6 +1,7 @@
 package client.calc;
 
 import client.Runner;
+import client.Sender;
 import client.calc.CalculatorEngine;
 
 import javax.swing.*;
@@ -32,12 +33,13 @@ public class MainWindow {
     GridLayout rightGridLayout3;
     BorderLayout bottomBorderLayout;
 
+    Sender sender;
 
-    public MainWindow() {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+
+    public MainWindow(Sender sender) {
+
+         this.sender = sender;
+
         this.mainPanel = new JPanel();
         this.numbersPanel = new JPanel();
         this.operationsPanel = new JPanel();
@@ -112,12 +114,14 @@ public class MainWindow {
         frame.pack();
         frame.setVisible(true);
 
-        CalculatorEngine calcEngine = new CalculatorEngine(this);
+//        CalculatorEngine calcEngine = new CalculatorEngine(this);
+
+
         for (JButton numButton : numButtons) {
-            numButton.addActionListener(calcEngine);
+            numButton.addActionListener(sender);
         }
         for (JButton actionButton : operationButtons) {
-            actionButton.addActionListener(calcEngine);
+            actionButton.addActionListener(sender);
         }
 
         for (JButton actionButton : operationButtons) {
@@ -128,9 +132,9 @@ public class MainWindow {
 //        equalsButton.addActionListener(calcEngine);
 //        percentButton.addActionListener(calcEngine);
 
-//        clear.addActionListener();
-        equalsButton.addActionListener(calcEngine);
-        percentButton.addActionListener(calcEngine);
+        clear.addActionListener(sender);
+        equalsButton.addActionListener(sender);
+        percentButton.addActionListener(sender);
 
 
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
